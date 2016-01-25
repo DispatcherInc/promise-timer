@@ -1,0 +1,30 @@
+{
+  "name": "promise-timer",
+  "version": "1.0.0",
+  "description": "Provides timing of promises.",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha test -R mocha-jenkins-reporter --recursive --ui bdd --timeout 10000;"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DispatcherInc/promise-timer.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/DispatcherInc/promise-timer/issues"
+  },
+  "homepage": "https://github.com/DispatcherInc/promise-timer#readme",
+  "dependencies": {
+    "bluebird": "^3.1.4",
+    "lodash": "^4.0.1",
+    "moment": "^2.11.1"
+  },
+  "devDependencies": {
+    "chai": "^3.4.1",
+    "mocha-jenkins-reporter": "^0.1.9",
+    "nock": "^2.13.0",
+    "sinon": "^1.17.2"
+  }
+}
