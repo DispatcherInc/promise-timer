@@ -2,7 +2,7 @@
 Provides timing of promises.
 
 - **timeify**(func, logFunc, scope) - Returns the function wrapped with timing
-- **timeifyAll**(target, logFunc) - Patches all the target's methods with timing
+- **timeifyAll**(target, logFunc, options) - Patches all the target's methods with timing
 
 These have similar definitions to bluebird's promisify:
 - timeify resembles [bluebird's promisify](http://bluebirdjs.com/docs/api/promise.promisify.html)
@@ -32,5 +32,10 @@ var API = {
 
 Promise.timeifyAll(API, function(fnName, timeData) {
 	console.log(timeData, "Called " + fnName);
+}, /* optional */ {
+	suffix: 'Timed', // or leave empty to override methods,
+	filter: function(name, func, target, passesDefaultFilter) { // optional filter
+		return _.includes(['getUsersAsync', 'getDriversAsync'], name);
+	}
 });
 ```
