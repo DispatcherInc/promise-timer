@@ -1,5 +1,5 @@
-# promise-cache-throttle
-Provides caching and throttling of promises.
+# promise-timer
+Provides timing of promises.
 
 - **timeify**(func, logFunc, scope) - Returns the function wrapped with timing
 - **timeifyAll**(target, logFunc) - Patches all the target's methods with timing
@@ -14,7 +14,7 @@ npm install promise-timer
 ```
 ```javascript
 var Promise = require('bluebird');
-require('timer')(Promise);
+require('promise-timer')(Promise);
 var superagent = require('superagent');
 var agent = require('superagent-promise')(superagent, Promise);
 
