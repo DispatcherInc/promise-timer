@@ -39,3 +39,9 @@ Promise.timeifyAll(API, function(fnName, timeData) {
 	}
 });
 ```
+Or for single functions:
+```javascript
+var getDriversAsyncTimed = Promise.timeify(API.getDriversAsync, function(fnName, timeData) {
+	console.log(timeData, "Called " + fnName);
+}, API);
+```
