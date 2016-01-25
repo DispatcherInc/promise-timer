@@ -32,6 +32,15 @@ var API = {
 
 Promise.timeifyAll(API, function(fnName, timeData) {
 	console.log(timeData, "Called " + fnName);
+	/*
+	e.g. timeData = 
+	{
+		start: 1453746070761,
+		end: 1453746070914,
+		elapsed: 153,
+		called: "getDriverAsync(100)"
+	}
+	*/
 }, /* optional */ {
 	suffix: 'Timed', // or leave empty to override methods,
 	filter: function(name, func, target, passesDefaultFilter) { // optional filter
