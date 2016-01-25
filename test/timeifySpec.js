@@ -40,7 +40,6 @@ describe('timeify', function() {
 				data[fnName] = timeData;
 			});
 
-			var start = new Date().getTime();
 			return Promise.all([
 				API.getUsersAsync(),
 				API.getDriversAsync(),
