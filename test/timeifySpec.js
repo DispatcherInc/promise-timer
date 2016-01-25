@@ -35,10 +35,11 @@ describe('timeify', function() {
 	describe('timeifyAll', function() {
 		it('should work', function() {
 			var data = {};
-
-			timeify.timeifyAll(API, function(fnName, timeData) {
+			var logger = function(fnName, timeData) {
 				data[fnName] = timeData;
-			});
+			};
+
+			timeify.timeifyAll(API, logger);
 
 			return Promise.all([
 				API.getUsersAsync(),
@@ -58,6 +59,68 @@ describe('timeify', function() {
 				expectBetween(data.getDriversAsync.elapsed, 100, 110);
 				expectBetween(data.getDriverAsync.elapsed, 150, 160);
 			});
+		});
+
+		it('should accept suffix', function() {
+			var data = {};
+			var logger = function(fnName, timeData) {
+				data[fnName] = timeData;
+			};
+
+			timeify.timeifyAll(API, logger, {
+				suffix: 'Timed'
+			});
+
+			expect(API.getUsersAsyncTimed).to.exist;
+			expect(API.getDriversAsyncTimed).to.exist;
+			expect(API.getDriverAsyncTimed).to.exist;
+
+			var start = new Date().getTime();
+			return Promise.all([
+				API.getUsersAsyncTimed(),
+				API.getDriversAsyncTimed(),
+				API.getDriverAsyncTimed()
+			]).spread(function(response1, response2, response3) {
+				expect(data.getUsersAsync).to.exist;
+				expect(data.getDriversAsync).to.exist;
+				expect(data.getDriverAsync).to.exist;
+			});
+		});
+
+		it('should support filtering', function() {
+			var data = {};
+			var logger = function(fnName, timeData) {
+				data[fnName] = timeData;
+			};
+
+			timeify.timeifyAll(API, logger, {
+				suffix: 'Timed',
+				filter: function(fnName, fn, target, passesDefaultFilter) {
+					return _.includes(['getUsersAsync', 'getDriversAsync'], fnName);
+				}
+			});
+
+			expect(API.getUsersAsyncTimed).to.exist;
+			expect(API.getDriversAsyncTimed).to.exist;
+			expect(API.getDriverAsyncTimed).to.not.exist;
+		});
+
+		it('should not apply to special functions by default', function() {
+			API.constructor = function() {};
+			API._specialFunction = function() {};
+
+			var data = {};
+			var logger = function(fnName, timeData) {
+				data[fnName] = timeData;
+			};
+
+			timeify.timeifyAll(API, logger, {
+				suffix: 'Timed'
+			});
+
+			expect(API.getUsersAsyncTimed).to.exist;
+			expect(API.constructorTimed).to.not.exist;
+			expect(API._specialFunctionTimed).to.not.exist;
 		});
 	});
 
