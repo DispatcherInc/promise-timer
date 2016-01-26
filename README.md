@@ -21,38 +21,38 @@ var superagent = require('superagent');
 var agent = require('superagent-promise')(superagent, Promise);
 
 var API = {
-	getUsersAsync: function() { 
-		return agent.get('/users/').end();
-	},
-	getDriversAsync: function() {
-		return agent.get('/drivers/').end();
-	},
-	getDriverAsync: function(driverId) {
-		return agent.get('/drivers/' + driverId).end();
-	}
+    getUsersAsync: function() { 
+        return agent.get('/users/').end();
+    },
+    getDriversAsync: function() {
+        return agent.get('/drivers/').end();
+    },
+    getDriverAsync: function(driverId) {
+        return agent.get('/drivers/' + driverId).end();
+    }
 };
 
 Promise.timeifyAll(API, function(fnName, timeData) {
-	console.log(timeData, "Called " + fnName);
-	/*
-	e.g. timeData = 
-	{
-		start: 1453746070761,
-		end: 1453746070914,
-		elapsed: 153,
-		called: "getDriverAsync(100)"
-	}
-	*/
+    console.log(timeData, "Called " + fnName);
+    /*
+    e.g. timeData = 
+    {
+        start: 1453746070761,
+        end: 1453746070914,
+        elapsed: 153,
+        called: "getDriverAsync(100)"
+    }
+    */
 }, /* optional */ {
-	suffix: 'Timed', // or leave empty to override methods,
-	filter: function(name, func, target, passesDefaultFilter) { // optional filter
-		return _.includes(['getUsersAsync', 'getDriversAsync'], name);
-	}
+    suffix: 'Timed', // or leave empty to override methods,
+    filter: function(name, func, target, passesDefaultFilter) { // optional filter
+        return _.includes(['getUsersAsync', 'getDriversAsync'], name);
+    }
 });
 ```
 Or for single functions:
 ```javascript
 var getDriversAsyncTimed = Promise.timeify(API.getDriversAsync, function(fnName, timeData) {
-	console.log(timeData, "Called " + fnName);
+    console.log(timeData, "Called " + fnName);
 }, API);
 ```
