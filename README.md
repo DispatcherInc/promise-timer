@@ -1,3 +1,5 @@
+[![Circle CI](https://circleci.com/gh/DispatcherInc/promise-timer.svg?style=svg&circle-token=c440495658ff31ac5f94f3d984a3425760ef7928)](https://circleci.com/gh/DispatcherInc/promise-timer)
+
 # promise-timer
 Provides timing of promises.
 
